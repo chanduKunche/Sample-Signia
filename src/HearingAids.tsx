@@ -6,6 +6,7 @@ import useAssignHearingAids from "./useAssignHearingAids";
 
 interface Prop {
   id : string;
+  name : string;
   // toggleHearingAid : Function,
   updateHearingAid: Function,
   hearingAidInfo: any
@@ -30,8 +31,8 @@ export const Checkboxes = (props : Prop) => {
 
   const commonH6 = (
     <>
-      <h6>Styletto 7AX S (110/46)</h6>
-      <h6>Serial No. SF00310</h6>
+      <h6>{props.name}</h6>
+      <h6>{props.id}</h6>
     </>
   );
 

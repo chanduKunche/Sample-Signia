@@ -2,7 +2,8 @@ import "./App.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Checkbox } from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SelectedHAs } from "./SelectedHAs";
 // import useAssignHearingAids from "./useAssignHearingAids";
 
 interface AssignedHearingAids {
@@ -12,7 +13,8 @@ interface AssignedHearingAids {
 function App() {
   const navigate = useNavigate();
   function handleClick() {
-    navigate("/SelectedHAs");
+    // navigate("/SelectedHAs");
+    setProceed(true)
   }
 
 
@@ -20,7 +22,7 @@ function App() {
   // const{myLeftCheckbox, myRightCheckbox, onLeftCheck, onRightCheck, toggleHearingAid} = useAssignHearingAids();
 
   const [hearingAidInfo, setHearingAIdInfo] = useState<AssignedHearingAids>({right: "",left: ""});
-
+  const [proceed, setProceed] = useState(false)
   function updateHearingAid(id: string, value: "left" | "right"){
    
     // if(hearingAidInfo[value] != undefined){
@@ -51,50 +53,57 @@ function App() {
     console.log("hearingAidInfo----->",hearingAidInfo)
     
   }
+
+  useEffect(() => {
+    console.log("hearingAidInfoNew----->",hearingAidInfo)
+  },[hearingAidInfo])
   const res =[
     {
-        id: "3a25b831-17ed-4eb0-b6d4-6c1879322d4b",
-        serialNumber: "6df89b41-ff81-44ef-a44f-85175f41884a",
+        id: " SF00310",
+        serialNumber: "Serial No. SF00310",
         haName: null,
-        brand: "Signia",
+        brand: "Styletto 7AX S (110/46)",
         earSide: "Right",
     },
     {
-        id: "fd4cf856-54a6-41bd-b7b8-456844c3df4b",
-        serialNumber: "bd913c1b-b58d-4cab-ab73-0e184db8f451",
+        id: "2 SF00310",
+        serialNumber: "Serial No. SF00311",
         haName: null,
-        brand: "Signia",
+        brand: "Styletto pro 7AX S (110/46)",
         earSide: "Left",
     },
     {
-      id: "fd4cf856-54a6-41bd-b7b8-456844c3df4bdrff",
-      serialNumber: "bd913c1b-b58d-4cab-ab73-0e184db8f451aaa",
+      id: "S SF00310",
+      serialNumber: "Serial No. SF00312",
       haName: null,
-      brand: "Signia",
+      brand: "Styletto pro 7AX S (110/46)",
       earSide: "Left",
   },
 ]
 
 
   return (
-    <>
-      <div className="container">
-        <h3>Connect Hearing Aids</h3>
-        {
-          res.map((i,index) => (
-            <>
-            <Checkboxes  key={index} id={i.serialNumber} updateHearingAid={updateHearingAid} hearingAidInfo={hearingAidInfo}/>
+    <>{
+      proceed ? 
+      <SelectedHAs hearingAidInfo={hearingAidInfo} />
+       :
+       <div className="container">
+       <h3>Connect Hearing Aids</h3>
+       {
+         res.map((i,index) => (
+           <>
+           <Checkboxes  key={index} id={i.serialNumber} name={i.brand}updateHearingAid={updateHearingAid} hearingAidInfo={hearingAidInfo}/>
 
-            </>
-          ))
-        }
-          <div className="button-container">
-          <Button size="small" variant="secondary" style={{ marginRight:"340px"}}>Retry</Button>
-          <Button size="small" onClick={handleClick} >OK</Button>
-          <Button  size="small" variant="secondary" style={{ marginRight:"5px"}}>Cancel</Button>
-          </div>
-        
-      </div>
+           </>
+         ))
+       }
+         <div className="button-container">
+         <Button size="small" variant="secondary" style={{ marginRight:"340px"}}>Retry</Button>
+         <Button size="small" onClick={handleClick} >OK</Button>
+         <Button  size="small" variant="secondary" style={{ marginRight:"5px"}}>Cancel</Button>
+         </div>
+     </div>
+      }
     </>
   );
 }
