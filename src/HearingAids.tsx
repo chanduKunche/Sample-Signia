@@ -1,8 +1,8 @@
-import { useState } from "react";
+//import { useState } from "react";
 import "./index.css";
 import { Checkbox } from "@wsa/echo-components";
 import React from "react";
-import useAssignHearingAids from "./useAssignHearingAids";
+//import useAssignHearingAids from "./useAssignHearingAids";
 
 interface Prop {
   id : string;
@@ -14,7 +14,7 @@ interface Prop {
 
 export const Checkboxes = (props : Prop) => {
 
-  const{myLeftCheckbox, myRightCheckbox, onLeftCheck, onRightCheck} = useAssignHearingAids();
+  //const{myLeftCheckbox, myRightCheckbox, onLeftCheck, onRightCheck} = useAssignHearingAids();
 
   // console.log("heraingaidcomp",props.hearingAidInfo.right.serialNumber)
  
@@ -28,7 +28,7 @@ export const Checkboxes = (props : Prop) => {
   //   setMyLeftCheckbox(false);
   // };
 
-  const commonH6 = (
+  const commonHA = (
     <>
       <h6>Styletto 7AX S (110/46)</h6>
       <h6>Serial No. SF00310</h6>
@@ -57,10 +57,10 @@ export const Checkboxes = (props : Prop) => {
           className="ha"
          style={{backgroundColor: props.hearingAidInfo.right === props.id ? "#ED0400" : "#00508E", color : '#fff'}}
         >
-          {React.Children.toArray(commonH6.props.children)}
+          {commonHA}
         </div>
       ) : (
-        <div className="ha">{commonH6}</div>
+        <div className="ha">{commonHA}</div>
       )}
 
       <Checkbox

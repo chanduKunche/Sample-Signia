@@ -62,6 +62,7 @@ it("OK button is working or not", async () => {
   const mockedNavigator = vi.fn();
 
   vi.spyOn(router, "useNavigate").mockImplementation(() => mockedNavigator);
-  await waitFor(() => expect(window.location.href).toContain("/SelectedHAs"));
+  await waitFor(() => expect(navigate).toHaveBeenCalledWith("/SelectedHAs"));
   
 });
+
