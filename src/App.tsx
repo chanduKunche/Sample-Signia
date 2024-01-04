@@ -1,9 +1,9 @@
 import "./App.css";
 import { useNavigate } from "react-router-dom";
-import { Button, Checkbox } from "@wsa/echo-components";
+import { Button } from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
 import { useState } from "react";
-// import useAssignHearingAids from "./useAssignHearingAids";
+
 
 interface AssignedHearingAids {
   left: string | null;
