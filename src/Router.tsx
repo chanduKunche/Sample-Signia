@@ -6,7 +6,7 @@ export default function RouterPage() {
   return (
     <Routes>
         <Route path="/selectedHAs" element={<SelectedHAs />} />
-        <Route path="/" element = {<App/>}></Route>
+        <Route path="/" element = {<App/>}/>
   </Routes>
   )
 }

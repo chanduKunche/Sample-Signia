@@ -1,31 +1,26 @@
 import "./App.css";
-import { Button} from "@wsa/echo-components";
+import { Button } from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
-import {  useState } from "react";
+import { useState } from "react";
 import { SelectedHAs } from "./SelectedHAs";
+import { useNavigate } from "react-router-dom";
 
 type AssignedHearingAids = {
   left: string | null;
   right: string | null;
 };
-function App() {
-  function handleClick() {
-    setProceed(true);
+const  App = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/SelectedHAs', {state : hearingAidInfo})
   }
-
 
   const [hearingAidInfo, setHearingAIdInfo] = useState<AssignedHearingAids>({
     right: "",
     left: "",
   });
-  const [proceed, setProceed] = useState(false);
 
-  const handleChange = () => {
-    console.log(proceed);
-    setProceed(false);
-  };
   function updateHearingAid(id: string, value: "left" | "right") {
-
     setHearingAIdInfo((prevHearingAid) => {
       const updatedHearingAid = { ...prevHearingAid };
       const oppositeSide = value === "left" ? "right" : "left";
@@ -43,6 +38,7 @@ function App() {
 
   const res = [
     {
+      id: 1,
       serialNumber: "Serial No. SF00310",
       brand: "Styletto 7AX S (110/46)",
       earSide: "Right",
@@ -61,13 +57,6 @@ function App() {
 
   return (
     <>
-      {proceed ? (
-        <SelectedHAs
-          hearingAidInfo={hearingAidInfo}
-          proceed={proceed}
-          change={handleChange}
-        />
-      ) : (
         <div className="container">
           <h3>Connect Hearing Aids</h3>
           {res.map((i, index) => (
@@ -101,7 +90,6 @@ function App() {
             </Button>
           </div>
         </div>
-      )}
     </>
   );
 }
