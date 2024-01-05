@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { Button } from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
 import { useState } from "react";
@@ -34,6 +35,7 @@ const  App = () => {
       }
       return updatedHearingAid;
     });
+
   }
 
   const res = [
@@ -57,6 +59,7 @@ const  App = () => {
 
   return (
     <>
+
         <div className="container">
           <h3>Connect Hearing Aids</h3>
           {res.map((i, index) => (
