@@ -1,17 +1,19 @@
 import "./App.css";
-import { useNavigate } from "react-router-dom";
+
 import { Button } from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
 import { useState } from "react";
+import { SelectedHAs } from "./SelectedHAs";
+import { useNavigate } from "react-router-dom";
 
-interface AssignedHearingAids {
+type AssignedHearingAids = {
   left: string | null;
   right: string | null;
-}
-function App() {
+};
+const  App = () => {
   const navigate = useNavigate();
-  function handleClick() {
-    navigate("/SelectedHAs");
+  const handleClick = () => {
+    navigate('/SelectedHAs', {state : hearingAidInfo})
   }
 
   const [hearingAidInfo, setHearingAIdInfo] = useState<AssignedHearingAids>({
@@ -33,68 +35,64 @@ function App() {
       }
       return updatedHearingAid;
     });
-    console.log("hearingAidInfo----->", hearingAidInfo);
+
   }
+
   const res = [
     {
-      id: "3a25b831-17ed-4eb0-b6d4-6c1879322d4b",
-      serialNumber: "6df89b41-ff81-44ef-a44f-85175f41884a",
-      haName: null,
-      brand: "Signia",
+      id: 1,
+      serialNumber: "Serial No. SF00310",
+      brand: "Styletto 7AX S (110/46)",
       earSide: "Right",
     },
     {
-      id: "fd4cf856-54a6-41bd-b7b8-456844c3df4b",
-      serialNumber: "bd913c1b-b58d-4cab-ab73-0e184db8f451",
-      haName: null,
-      brand: "Signia",
+      serialNumber: "Serial No. SF00311",
+      brand: "Styletto pro 7AX S (110/46)",
       earSide: "Left",
     },
     {
-      id: "fd4cf856-54a6-41bd-b7b8-456844c3df4bdrff",
-      serialNumber: "bd913c1b-b58d-4cab-ab73-0e184db8f451aaa",
-      haName: null,
-      brand: "Signia",
+      serialNumber: "Serial No. SF00312",
+      brand: "Styletto pro 7AX S (110/46)",
       earSide: "Left",
     },
   ];
 
   return (
     <>
-      <div className="container">
-        <h3>Connect Hearing Aids</h3>
-        {res.map((i, index) => (
-          <>
-            <Checkboxes
-              key={index}
-              id={i.serialNumber}
-              updateHearingAid={updateHearingAid}
-              hearingAidInfo={hearingAidInfo}
-            />
-          </>
-        ))}
-        <div className="button-container">
-          <Button
-            size="small"
-            variant="secondary"
-            style={{ marginRight: "340px" }}
-          >
-            Retry
-          </Button>
 
-          <Button size="small" onClick={handleClick}>
-            OK
-          </Button>
-
-          <Button
-            size="small"
-            variant="secondary"
-            style={{ marginRight: "5px" }}
-          >
-            Cancel
-          </Button>
+        <div className="container">
+          <h3>Connect Hearing Aids</h3>
+          {res.map((i, index) => (
+            <>
+              <Checkboxes
+                key={index}
+                id={i.serialNumber}
+                name={i.brand}
+                updateHearingAid={updateHearingAid}
+                hearingAidInfo={hearingAidInfo}
+              />
+            </>
+          ))}
+          <div className="button-container">
+            <Button
+              size="small"
+              variant="secondary"
+              style={{ marginRight: "340px" }}
+            >
+              Retry
+            </Button>
+            <Button size="small" onClick={handleClick}>
+              OK
+            </Button>
+            <Button
+              size="small"
+              variant="secondary"
+              style={{ marginRight: "5px" }}
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
-      </div>
     </>
   );
 }
