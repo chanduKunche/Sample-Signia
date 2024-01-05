@@ -1,113 +1,109 @@
 import "./App.css";
-import { useNavigate } from "react-router-dom";
-import { Button, Checkbox } from "@wsa/echo-components";
+import { Button} from "@wsa/echo-components";
 import { Checkboxes } from "./HearingAids";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { SelectedHAs } from "./SelectedHAs";
-// import useAssignHearingAids from "./useAssignHearingAids";
 
-interface AssignedHearingAids {
+type AssignedHearingAids = {
   left: string | null;
   right: string | null;
-}
+};
 function App() {
-  const navigate = useNavigate();
   function handleClick() {
-    // navigate("/SelectedHAs");
-    setProceed(true)
+    setProceed(true);
   }
 
 
+  const [hearingAidInfo, setHearingAIdInfo] = useState<AssignedHearingAids>({
+    right: "",
+    left: "",
+  });
+  const [proceed, setProceed] = useState(false);
 
-  // const{myLeftCheckbox, myRightCheckbox, onLeftCheck, onRightCheck, toggleHearingAid} = useAssignHearingAids();
+  const handleChange = () => {
+    console.log(proceed);
+    setProceed(false);
+  };
+  function updateHearingAid(id: string, value: "left" | "right") {
 
-  const [hearingAidInfo, setHearingAIdInfo] = useState<AssignedHearingAids>({right: "",left: ""});
-  const [proceed, setProceed] = useState(false)
-  function updateHearingAid(id: string, value: "left" | "right"){
-   
-    // if(hearingAidInfo[value] != undefined){
-    //   delete hearingAidInfo[value];
-    // }
-    // hearingAidInfo.value = id;
-    // if(value==="left"){
-    //   setHearingAIdInfo({right: "",left: id});
-    // }
-    // else{
-    //   setHearingAIdInfo({right: id,left: ""});
-    // }
-
-
-    setHearingAIdInfo(prevHearingAid => {
+    setHearingAIdInfo((prevHearingAid) => {
       const updatedHearingAid = { ...prevHearingAid };
       const oppositeSide = value === "left" ? "right" : "left";
       if (prevHearingAid[oppositeSide] === id) {
-          updatedHearingAid[oppositeSide] = null;
+        updatedHearingAid[oppositeSide] = null;
       }
       if (prevHearingAid[value] === id) {
-          updatedHearingAid[value] = null;
+        updatedHearingAid[value] = null;
       } else {
-          updatedHearingAid[value] = id;
+        updatedHearingAid[value] = id;
       }
       return updatedHearingAid;
-  });
-    console.log("hearingAidInfo----->",hearingAidInfo)
-    
+    });
   }
 
-  useEffect(() => {
-    console.log("hearingAidInfoNew----->",hearingAidInfo)
-  },[hearingAidInfo])
-  const res =[
+  const res = [
     {
-        id: " SF00310",
-        serialNumber: "Serial No. SF00310",
-        haName: null,
-        brand: "Styletto 7AX S (110/46)",
-        earSide: "Right",
+      serialNumber: "Serial No. SF00310",
+      brand: "Styletto 7AX S (110/46)",
+      earSide: "Right",
     },
     {
-        id: "2 SF00310",
-        serialNumber: "Serial No. SF00311",
-        haName: null,
-        brand: "Styletto pro 7AX S (110/46)",
-        earSide: "Left",
-    },
-    {
-      id: "S SF00310",
-      serialNumber: "Serial No. SF00312",
-      haName: null,
+      serialNumber: "Serial No. SF00311",
       brand: "Styletto pro 7AX S (110/46)",
       earSide: "Left",
-  },
-]
-
+    },
+    {
+      serialNumber: "Serial No. SF00312",
+      brand: "Styletto pro 7AX S (110/46)",
+      earSide: "Left",
+    },
+  ];
 
   return (
-    <>{
-      proceed ? 
-      <SelectedHAs hearingAidInfo={hearingAidInfo} />
-       :
-       <div className="container">
-       <h3>Connect Hearing Aids</h3>
-       {
-         res.map((i,index) => (
-           <>
-           <Checkboxes  key={index} id={i.serialNumber} name={i.brand}updateHearingAid={updateHearingAid} hearingAidInfo={hearingAidInfo}/>
-
-           </>
-         ))
-       }
-         <div className="button-container">
-         <Button size="small" variant="secondary" style={{ marginRight:"340px"}}>Retry</Button>
-         <Button size="small" onClick={handleClick} >OK</Button>
-         <Button  size="small" variant="secondary" style={{ marginRight:"5px"}}>Cancel</Button>
-         </div>
-     </div>
-      }
+    <>
+      {proceed ? (
+        <SelectedHAs
+          hearingAidInfo={hearingAidInfo}
+          proceed={proceed}
+          change={handleChange}
+        />
+      ) : (
+        <div className="container">
+          <h3>Connect Hearing Aids</h3>
+          {res.map((i, index) => (
+            <>
+              <Checkboxes
+                key={index}
+                id={i.serialNumber}
+                name={i.brand}
+                updateHearingAid={updateHearingAid}
+                hearingAidInfo={hearingAidInfo}
+              />
+            </>
+          ))}
+          <div className="button-container">
+            <Button
+              size="small"
+              variant="secondary"
+              style={{ marginRight: "340px" }}
+            >
+              Retry
+            </Button>
+            <Button size="small" onClick={handleClick}>
+              OK
+            </Button>
+            <Button
+              size="small"
+              variant="secondary"
+              style={{ marginRight: "5px" }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
 
 export default App;
-
-
