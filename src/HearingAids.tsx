@@ -1,14 +1,14 @@
 import "./index.css";
 import { Checkbox } from "@wsa/echo-components";
 
-type Prop = {
+type checkBoxProps = {
   id: string;
   name: string;
   updateHearingAid: Function;
   hearingAidInfo: any;
 };
 
-export const Checkboxes = (props: Prop) => {
+export const HearingAids = (props: checkBoxProps) => {
   const commonH6 = (
     <>
       <h6>{props.name}</h6>
@@ -26,7 +26,7 @@ export const Checkboxes = (props: Prop) => {
     <div className="hearing-aid">
       <Checkbox
         checked={props.hearingAidInfo.right === props.id}
-        className="right-checkbox"
+        className="right-HearingAidIndicator"
         label="R"
         id="myCheckboxR"
         onChange={() => {
@@ -51,9 +51,8 @@ export const Checkboxes = (props: Prop) => {
 
       <Checkbox
         checked={props.hearingAidInfo.left === props.id}
-        className="left-checkbox"
+        className="left-HearingAidIndicator"
         label="L"
-        id="myCheckboxL"
         onChange={() => {
           onHearingAidSideButtonClick(props.id, "left");
         }}

@@ -1,20 +1,17 @@
 import "./index.css";
 import { Button } from "@wsa/echo-components";
 import { HearingAidsIndicator } from "@wsa/echo-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Location, useLocation, useNavigate } from "react-router-dom";
 
-type Prop = {
-  hearingAidInfo: any;
-  proceed: boolean;
-  change: Function;
-};
 
-export const SelectedHAs = (props: Prop) => {
+export const SelectedHAs = () => {
   const navigate = useNavigate();
 const handleDisconnect = () => {
   navigate('/')
 }
-
+  const temp: Location = {key: "", pathname: "", state: {}, search: "", hash: };
+  console.log(temp);
+  
   const {state} = useLocation();
   return (
     <div className="Selected-ha">
