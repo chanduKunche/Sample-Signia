@@ -1,3 +1,4 @@
+
 import "./index.css";
 import { Checkbox } from "@wsa/echo-components";
 
@@ -10,6 +11,7 @@ type checkBoxProps = {
 
 export const HearingAids = (props: checkBoxProps) => {
   const commonH6 = (
+
     <>
       <h6>{props.name}</h6>
       <h6>{props.id}</h6>
@@ -43,10 +45,12 @@ export const HearingAids = (props: checkBoxProps) => {
             color: "#fff",
           }}
         >
+
           {commonH6}
+
         </div>
       ) : (
-        <div className="ha">{commonH6}</div>
+        <div className="ha">{commonHA}</div>
       )}
 
       <Checkbox
