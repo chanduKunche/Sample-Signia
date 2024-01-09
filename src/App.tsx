@@ -18,7 +18,16 @@ const App = () => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/SelectedHAs", { state: hearingAidInfo });
+    const aidList = [];
+    for(const hearingAid of HearingAidsInformation){
+      if(hearingAid.serialNumber == hearingAidInfo.left){
+        aidList[1] = hearingAid
+      }
+      if(hearingAid.serialNumber == hearingAidInfo.right){
+        aidList[0] = hearingAid
+      }
+    }
+    navigate("/SelectedHAs", { state: aidList });
   };
 
   const updateHearingAid = (id: string, value: "left" | "right") => {
@@ -28,15 +37,7 @@ const App = () => {
       if (prevHearingAid[oppositeSide] === id) {
         updatedHearingAid[oppositeSide] = null;
       }
-      // updateHearingAid[value]= id
-      prevHearingAid[value] === id
-        ? (updatedHearingAid[value] = null)
-        : (updatedHearingAid[value] = id);
-      // if (prevHearingAid[value] === id) {
-      //   updatedHearingAid[value] = null;
-      // } else {
-      //   updatedHearingAid[value] = id;
-      // }
+      updatedHearingAid[value] = prevHearingAid[value] === id ? null : id;
       return updatedHearingAid;
     });
   };
@@ -46,19 +47,16 @@ const App = () => {
       id: 1,
       serialNumber: "Serial No. SF00310",
       brand: "Styletto 7AX S (110/46)",
-      earSide: "Right",
     },
     {
       id:2,
       serialNumber: "Serial No. SF00311",
       brand: "Styletto pro 7AX S (110/46)",
-      earSide: "Left",
     },
     {
       id:3,
       serialNumber: "Serial No. SF00312",
       brand: "Styletto pro 7AX S (110/46)",
-      earSide: "Left",
     },
   ];
 

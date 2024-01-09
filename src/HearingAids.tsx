@@ -50,7 +50,7 @@ export const HearingAids = (props: checkBoxProps) => {
 
         </div>
       ) : (
-        <div className="ha">{commonHA}</div>
+        <div className="ha">{commonH6}</div>
       )}
 
       <Checkbox

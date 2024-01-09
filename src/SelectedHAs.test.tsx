@@ -7,19 +7,51 @@ import { MemoryRouter } from 'react-router-dom';
 
 
 it('renders component correctly', () => {
-    const locationState = { left: 'Left HA', right: 'Right HA' };
+    const locationState = [
+        {
+          id: 1,
+          serialNumber: "Serial No. SF00310",
+          brand: "Styletto 7AX S (110/46)",
+        },
+        {
+          id:2,
+          serialNumber: "Serial No. SF00311",
+          brand: "Styletto pro 7AX S (110/46)",
+        },
+        {
+          id:3,
+          serialNumber: "Serial No. SF00312",
+          brand: "Styletto pro 7AX S (110/46)",
+        },
+      ];
     render(
         <MemoryRouter initialEntries={[{state : locationState}]}>
             <SelectedHAs />
         </MemoryRouter>
     )
-    expect(screen.getByText(/Left HA/i))
+    expect(screen.getByText(/Serial No. SF00310/i))
 });
 
 
 
 it('navigates to App when clicking on the Diconnect button', () => {
-    const locationState = { left: 'Left HA', right: 'Right HA' };
+    const locationState = [
+        {
+          id: 1,
+          serialNumber: "Serial No. SF00310",
+          brand: "Styletto 7AX S (110/46)",
+        },
+        {
+          id:2,
+          serialNumber: "Serial No. SF00311",
+          brand: "Styletto pro 7AX S (110/46)",
+        },
+        {
+          id:3,
+          serialNumber: "Serial No. SF00312",
+          brand: "Styletto pro 7AX S (110/46)",
+        },
+      ];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const temp: any = {pathname: "/", search: "", hash: "", hostname: "", key: "", state: locationState}
     
